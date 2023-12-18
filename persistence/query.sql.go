@@ -3,17 +3,19 @@
 //   sqlc v1.24.0
 // source: query.sql
 
-package tutorial
+package persistence
 
 import (
 	"context"
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO
-    users (name, email, age)
-VALUES
-    ($1, $2, $3) RETURNING id, name, email, age
+INSERT INTO users (
+  name, email, age
+) VALUES (
+  $1, $2, $3
+)
+RETURNING id, name, email, age
 `
 
 type CreateUserParams struct {
@@ -35,12 +37,8 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const getUser = `-- name: GetUser :one
-SELECT
-    id, name, email, age
-FROM
-    users
-WHERE
-    id = $1
+SELECT id, name, email, age FROM users
+WHERE id = $1
 `
 
 func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
@@ -56,12 +54,8 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 }
 
 const updateUserAges = `-- name: UpdateUserAges :exec
-UPDATE
-    users
-SET
-    age = $2
-WHERE
-    id = $1
+UPDATE users SET age = $2
+WHERE id = $1
 `
 
 type UpdateUserAgesParams struct {

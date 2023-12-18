@@ -10,6 +10,6 @@ sql:
       managed: true
     gen:
       go:
-        package: "tutorial"
-        out: "tutorial"
+        package: "persistence"
+        out: "persistence"
         sql_package: "pgx/v5"
