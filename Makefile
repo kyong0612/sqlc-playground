@@ -7,3 +7,7 @@ init:
 .PHONY: gen-sqlc
 gen-sqlc:
 	go run github.com/sqlc-dev/sqlc/cmd/sqlc generate
+
+.PHONY: test
+test:
+	go test -v ./...
